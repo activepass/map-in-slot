@@ -2,7 +2,7 @@ package dev.crec.mapinslot.mixin;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.state.MapRenderState;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(GuiGraphics.class)
+@Mixin(GuiGraphicsExtractor.class)
 public abstract class ItemRendererMixin {
 
     @Shadow
@@ -27,13 +27,13 @@ public abstract class ItemRendererMixin {
     @Shadow public abstract Matrix3x2fStack pose();
     
     @Shadow
-    public abstract void submitMapRenderState(MapRenderState mapRenderState);
+    public abstract void map(MapRenderState mapRenderState);
     
     @Unique
     private final MapRenderState mapRenderState = new MapRenderState();
 
     @Inject(
-            method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V",
+            method = "itemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V",
             at = @At(value = "HEAD")
     )
     private void drawMap(Font font, ItemStack stack, int i, int j, String string, CallbackInfo ci) {
@@ -49,7 +49,7 @@ public abstract class ItemRendererMixin {
         this.pose().scale(0.125F, 0.125F);
 
         this.minecraft.getMapRenderer().extractRenderState(mapId, savedData, this.mapRenderState);
-        this.submitMapRenderState(this.mapRenderState);
+        this.map(this.mapRenderState);
 
         this.pose().popMatrix();
     }
