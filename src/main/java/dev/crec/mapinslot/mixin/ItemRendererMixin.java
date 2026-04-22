@@ -36,16 +36,16 @@ public abstract class ItemRendererMixin {
             method = "itemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V",
             at = @At(value = "HEAD")
     )
-    private void drawMap(Font font, ItemStack stack, int i, int j, String string, CallbackInfo ci) {
-        if (!stack.is(Items.FILLED_MAP)) return;
+    private void drawMap(Font font, ItemStack itemStack, int x, int y, String countText, CallbackInfo ci) {
+        if (!itemStack.is(Items.FILLED_MAP)) return;
 
-        var mapId = stack.get(DataComponents.MAP_ID);
+        var mapId = itemStack.get(DataComponents.MAP_ID);
         var savedData = MapItem.getSavedData(mapId, this.minecraft.level);
 
         if (savedData == null) return;
 
         this.pose().pushMatrix();
-        this.pose().translate(i, j);
+        this.pose().translate(x, y);
         this.pose().scale(0.125F, 0.125F);
 
         this.minecraft.getMapRenderer().extractRenderState(mapId, savedData, this.mapRenderState);

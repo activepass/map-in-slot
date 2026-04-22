@@ -1,20 +1,25 @@
 {
-  "schemaVersion": 1,
-  "id": "map-in-slot",
-  "version": "${version}",
-  "name": "Map in Slot",
-  "description": "",
-  "authors": ["Crec0", "ella"],
-  "contact": {},
-  "icon": "icon.png",
-  "license": "MIT",
-  "environment": "client",
-  "entrypoints": {},
-  "mixins": [
-    "map-in-slot.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.15.10",
-    "minecraft": [">=1.21.6"]
-  }
+    "schemaVersion": 1,
+    "id": "map-in-slot",
+    "version": "${version}",
+    "name": "Map in Slot",
+    "description": "",
+    "authors": [
+        "Crec0",
+        "ella"
+    ],
+    "contact": {},
+    "icon": "icon.png",
+    "license": "MIT",
+    "environment": "client",
+    "entrypoints": {},
+    "mixins": [
+        "map-in-slot.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.10",
+        "minecraft": [
+            ">=21.1"
+        ]
+    }
 }
